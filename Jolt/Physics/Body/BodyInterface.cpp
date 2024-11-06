@@ -814,9 +814,10 @@ bool BodyInterface::ApplyBuoyancyImpulse(const BodyID &inBodyID, RVec3Arg inSurf
 	BodyLockWrite lock(*mBodyLockInterface, inBodyID);
 	if (lock.Succeeded())
 	{
+		float total_volume, submerged_volume;
 		Body &body = lock.GetBody();
 		if (body.IsDynamic()
-			&& body.ApplyBuoyancyImpulse(inSurfacePosition, inSurfaceNormal, inBuoyancy, inLinearDrag, inAngularDrag, inFluidVelocity, inGravity, inDeltaTime))
+			&& body.ApplyBuoyancyImpulse(inSurfacePosition, inSurfaceNormal, inBuoyancy, inLinearDrag, inAngularDrag, inFluidVelocity, inGravity, inDeltaTime, total_volume, submerged_volume))
 		{
 			ActivateBodyInternal(body);
 			return true;
